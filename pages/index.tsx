@@ -31,7 +31,6 @@ const Home:FC<HomeProps> = ({ trendingResults, followResults, providers })  => {
       <main className="bg-black min-h-screen flex min-w-full max-w-[1500px]">
           <Sidebar/>
           <Feed /> 
-          {session.user.name}
       </main> 
     </div>
   )

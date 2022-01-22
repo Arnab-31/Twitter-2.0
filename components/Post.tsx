@@ -46,6 +46,19 @@ const Post:FC<PostProps> = ({id,post, postPage = false}) => {
     const [likes, setLikes] = useState([]);
     const router = useRouter();
 
+
+    useEffect(
+        () =>
+          onSnapshot(
+            query(
+              collection(db, "posts", id, "comments"),
+              orderBy("timestamp", "desc")
+            ),
+            (snapshot:any) => setComments(snapshot.docs)
+          ),
+        [db, id]
+    );
+
     useEffect(
         () =>
           onSnapshot(collection(db, "posts", id, "likes"), (snapshot:any) =>
@@ -183,9 +196,9 @@ const Post:FC<PostProps> = ({id,post, postPage = false}) => {
                     >
                         <div className="icon group-hover:bg-pink-600/10">
                         {liked ? (
-                            <HeartIconFilled className="h-5 text-pink-600" />
+                            <HeartIconFilled className="h-5 text-red-600" />
                         ) : (
-                            <HeartIcon className="h-5 group-hover:text-white-600" />
+                            <HeartIcon className="h-5 group-hover:text-red-600" />
                         )}  
                             </div>
                                 {likes.length > 0 && (

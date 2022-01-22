@@ -5,6 +5,9 @@ import { getProviders, getSession, useSession } from "next-auth/react";
 import { SessionProvider } from "next-auth/react"
 import { FC } from 'react';
 import Login from "../components/Login";
+import Modal from "../components/Modal";
+import { useRecoilState } from 'recoil';
+import { modalState } from '../atoms/modalAtom';
 
 interface HomeProps {
   trendingResults: any,
@@ -17,6 +20,7 @@ const Home:FC<HomeProps> = ({ trendingResults, followResults, providers })  => {
   //   {useSession() ? <Login />: null}
   // </SessionProvider>
   const { data: session } = useSession();
+  const [isOpen, setIsOpen] = useRecoilState(modalState)
 
   if (!session) return <Login  providers={providers}/>;
 
@@ -31,6 +35,7 @@ const Home:FC<HomeProps> = ({ trendingResults, followResults, providers })  => {
       <main className="bg-black min-h-screen flex min-w-full max-w-[1500px]">
           <Sidebar/>
           <Feed /> 
+          {isOpen && <Modal /> }
       </main> 
     </div>
   )

@@ -8,6 +8,7 @@ import Login from "../components/Login";
 import Modal from "../components/Modal";
 import { useRecoilState } from 'recoil';
 import { modalState } from '../atoms/modalAtom';
+import Widgets from '../components/Widgets';
 
 interface HomeProps {
   trendingResults: any,
@@ -35,6 +36,11 @@ const Home:FC<HomeProps> = ({ trendingResults, followResults, providers })  => {
       <main className="bg-black min-h-screen flex min-w-full max-w-[1500px]">
           <Sidebar/>
           <Feed /> 
+          <Widgets
+          trendingResults={trendingResults}
+          followResults={followResults}
+          />
+
           {isOpen && <Modal /> }
       </main> 
     </div>

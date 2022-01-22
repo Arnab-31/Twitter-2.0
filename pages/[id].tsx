@@ -17,6 +17,7 @@ import {
   import { ArrowLeftIcon } from "@heroicons/react/solid";
   import Head from "next/head";
   import Comment from "../components/Comment";
+import Widgets from "../components/Widgets";
 
 
 interface PostPageProps {
@@ -89,7 +90,11 @@ const PostPage:FC<PostPageProps> = ({ trendingResults, followResults, providers 
                 </div>
               )}
             </div>
-          
+            
+            <Widgets
+                trendingResults={trendingResults}
+                followResults={followResults}
+            />
     
             {isOpen && <Modal />}
           </main>

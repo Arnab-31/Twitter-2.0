@@ -50,7 +50,7 @@ const Feed = () => {
 
           <div className="pb-72">
             {posts.map((post:any) => (
-              <Post key={post.id} id={post.id} post={post.data()}></Post>
+              <Post key={post.id} id={post.id} post={post.data()} postPage={false}></Post>
             ))
 
             }

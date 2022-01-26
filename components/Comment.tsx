@@ -10,10 +10,11 @@ import { FC } from "react";
   
 
   interface CommentProps {
-      comment: any
+      comment: any,
+      id: any
   }
   
-  const Comment:FC<CommentProps> = ({ comment }) =>{
+  const Comment:FC<CommentProps> = ({ comment, id }) =>{
     return (
       <div className="p-3 flex cursor-pointer border-b border-gray-700">
         <img

@@ -20,6 +20,8 @@ import {
 import Widgets from "../components/Widgets";
 
 
+
+
 interface PostPageProps {
 trendingResults: any,
 followResults: any,
@@ -30,14 +32,14 @@ const PostPage:FC<PostPageProps> = ({ trendingResults, followResults, providers 
 
     const { data: session } = useSession();
     const [isOpen, setIsOpen] = useRecoilState(modalState);
-    const [post, setPost] = useState();
-    const [comments, setComments] = useState([]);
+    const [post, setPost] = useState<any>();
+    const [comments, setComments] = useState<any[]>([]);
     const router = useRouter();
-    const { id } = router.query;
+    const { id }:any = router.query;
 
     useEffect(
         () =>
-          onSnapshot(doc(db, "posts", id), (snapshot:any) => {
+          onSnapshot(doc(db , "posts", id), (snapshot:any) => {
             setPost(snapshot.data());
           }),
         [db]

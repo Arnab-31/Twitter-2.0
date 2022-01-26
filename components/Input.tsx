@@ -12,12 +12,15 @@ import {
     addDoc,
     collection,
     doc,
+    DocumentReference,
     serverTimestamp,
     updateDoc,
   } from "@firebase/firestore";
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 import { useSession } from "next-auth/react";
+import { DocumentRemoveIcon } from "@heroicons/react/outline";
+import { Session } from "inspector";
 
 
 const Input = () => {
@@ -27,13 +30,26 @@ const Input = () => {
     const [selectedFile,  setSelectedFile] = useState(null);
     const filePickerRef: any = useRef(null);
     const [loading, setLoading] = useState(false);
-    const { data: session } = useSession();
+    
+   
+
+    const { data: session }:any= useSession();
+    
+    interface TweetType {
+        id: any,
+        username: any
+        userImg: any,
+        tag: any,
+        text: any,
+        timestamp:  any
+    }
+
     
     const sendPost = async () => {
         if (loading) return;
         setLoading(true);
 
-        const docRef = await addDoc(collection(db, "posts"), {
+        const docRef: DocumentReference = await addDoc(collection(db, "posts"), {
             id: session?.user?.uid,
             username: session?.user?.name,
             userImg: session?.user?.image,

@@ -38,7 +38,7 @@ interface PostProps {
 const Post:FC<PostProps> = ({id,post, postPage = false}) => {
 
 
-    const { data: session } = useSession();
+    const { data: session }:any = useSession();
     const [isOpen,setIsOpen] = useRecoilState(modalState);
     const [postId,setPostId] = useRecoilState(postIdState);
     const [comments, setComments] = useState([]);

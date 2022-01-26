@@ -22,10 +22,10 @@ import { useRouter } from "next/router";
 import Moment from "react-moment";
 
 function Modal() {
-  const { data: session } = useSession();
+  const { data: session }:any = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
-  const [post, setPost] = useState();
+  const [post, setPost] = useState<any>();
   const [comment, setComment] = useState("");
   const router = useRouter();
 
@@ -49,7 +49,7 @@ function Modal() {
     });
 
     setIsOpen(false);
-    setComment("");
+    setComment("");  
 
     router.push(`/${postId}`);
   }; 
@@ -127,7 +127,7 @@ function Modal() {
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         placeholder="Tweet your reply"
-                        rows="2"
+                        rows={2}
                         className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[80px]"
                       />
 

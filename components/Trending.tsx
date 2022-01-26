@@ -16,7 +16,7 @@ const Trending:FC<TrendingProps> = ({ result }) =>{
         </h6>
         <p className="text-[#6e767d] text-xs font-medium max-w-[250px]">
           Trending with{" "}
-          {result.tags.map((tag, index) => (
+          {result.tags.map((tag:any, index:any) => (
             <span className="tag" key={index}>
               {tag}
             </span>

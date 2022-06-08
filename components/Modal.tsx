@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { modalState, postIdState } from "../atoms/modalAtom";
+import { communityIdState, modalState, postIdState } from "../atoms/modalAtom";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
 import {
@@ -21,36 +21,51 @@ import {
 import { useRouter } from "next/router";
 import Moment from "react-moment";
 
-function Modal() {
+function Modal({community = null}:any) {
   const { data: session }:any = useSession();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
+  const [comId,setCommId] = useRecoilState(communityIdState)
   const [post, setPost] = useState<any>();
   const [comment, setComment] = useState("");
   const router = useRouter();
 
-  useEffect(
-    () =>
-      onSnapshot(doc(db, "posts", postId), (snapshot:any) => {
-        setPost(snapshot.data());
-      }),
-    [db]
+  useEffect(() => {
+      if(community){
+        onSnapshot(doc(db, "community", community, "posts", postId), (snapshot:any) => {
+          setPost(snapshot.data());
+        })
+      }else{
+        onSnapshot(doc(db, "posts", postId), (snapshot:any) => {
+          setPost(snapshot.data());
+        })
+    }},[db]
   );
 
   const sendComment = async (e : any) => {
     e.preventDefault();
 
-    await addDoc(collection(db, "posts", postId, "comments"), {
-      comment: comment,
-      username: session?.user?.name,
-      tag: session?.user?.tag,
-      userImg: session?.user?.image,
-      timestamp: serverTimestamp(),
-    });
+    if(community){
+      await addDoc(collection(db, "community", community, "posts", postId, "comments"), {
+        comment: comment,
+        username: session?.user?.name,
+        tag: session?.user?.tag,
+        userImg: session?.user?.image,
+        timestamp: serverTimestamp(),
+      });
+    }else{
+      await addDoc(collection(db, "posts", postId, "comments"), {
+        comment: comment,
+        username: session?.user?.name,
+        tag: session?.user?.tag,
+        userImg: session?.user?.image,
+        timestamp: serverTimestamp(),
+      });
+    }
 
     setIsOpen(false);
     setComment("");  
-
+    setCommId(community)
     router.push(`/${postId}`);
   }; 
 
@@ -133,7 +148,7 @@ function Modal() {
 
                       <div className="flex items-center justify-between pt-2.5">
                         <div className="flex items-center">
-                          <div className="icon">
+                          {/* <div className="icon">
                             <PhotographIcon className="text-[#1d9bf0] h-[22px]" />
                           </div>
 
@@ -147,7 +162,7 @@ function Modal() {
 
                           <div className="icon">
                             <CalendarIcon className="text-[#1d9bf0] h-[22px]" />
-                          </div>
+                          </div> */}
                         </div>
                         <button
                           className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"

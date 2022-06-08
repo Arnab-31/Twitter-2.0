@@ -12,6 +12,7 @@ import {
   DotsHorizontalIcon,
 } from "@heroicons/react/outline";
 import { signOut,useSession } from "next-auth/react";
+import Link from "next/link";
 
 function Sidebar (){
     
@@ -22,7 +23,9 @@ function Sidebar (){
             
             <div className="flex items-center justify-center w-14 h-14
             hoverAnimation p-0 xl:ml-24">
-              <Image src="https://rb.gy/ogau5a" width={30} height={30}/>
+              <Link href="/">
+                <Image src="https://rb.gy/ogau5a" width={30} height={30}/>
+              </Link>
             </div>
 
             <div className = "space-y-2.5 mt-4 mb-2.5 xl:ml-24">
@@ -37,9 +40,9 @@ function Sidebar (){
                 
             </div>
 
-            <button className="hidden xl:inline ml-24 bg-[#1d9bf0] text-white rounded-full w-56 h-[45px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
+            {/* <button className="hidden xl:inline ml-24 bg-[#1d9bf0] text-white rounded-full w-56 h-[45px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
                 Tweet
-            </button>
+            </button> */}
 
             <div  className="text-[#d9d9d9] flex items-center justify-center mt-auto hoverAnimation xl:ml-24 xl:-mr-5" onClick={() => signOut()}>
                 <img 
@@ -48,8 +51,8 @@ function Sidebar (){
                 />
 
                 <div className="hidden xl:inline leading-5">
-                    <h4 className="font-bold">{session.user.name}</h4>
-                    <p className="text-[#6e767d]">@A{session.user.tag}</p>
+                    <h4 className="font-bold">{session?.user?.name}</h4>
+                    <p className="text-[#6e767d]">@A{session?.user?.tag}</p>
                 </div>
 
                 <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10"/>

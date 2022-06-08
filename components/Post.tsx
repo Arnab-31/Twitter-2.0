@@ -25,22 +25,24 @@ import {
 HeartIcon as HeartIconFilled,
 ChatIcon as ChatIconFilled,
 } from "@heroicons/react/solid";
-import { modalState, postIdState } from "../atoms/modalAtom";
+import { modalState, postIdState, communityIdState } from "../atoms/modalAtom";
 import { db } from "../firebase";
 
 
 interface PostProps {
     id: any,
     post: any,
-    postPage: any
+    postPage: any,
+    comId: any
 }
 
-const Post:FC<PostProps> = ({id,post, postPage = false}) => {
+const Post:FC<PostProps> = ({id,post, postPage = false, comId=null}) => {
 
 
     const { data: session }:any = useSession();
     const [isOpen,setIsOpen] = useRecoilState(modalState);
     const [postId,setPostId] = useRecoilState(postIdState);
+    const [communityId, setCommunityId] = useRecoilState(communityIdState);
     const [comments, setComments] = useState([]);
     const [liked, setLiked] = useState(false);
     const [likes, setLikes] = useState([]);
@@ -89,7 +91,7 @@ const Post:FC<PostProps> = ({id,post, postPage = false}) => {
         console.log(likes)
     }
     return (
-        <div className="p-3 flex cursor-pointer border-b border-gray-700"  onClick={() => router.push(`/${id}`)}>
+        <div className="p-3 flex cursor-pointer border-b border-gray-700"  onClick={() => {if(comId)setCommunityId(comId);else setCommunityId(null); router.push(`/${id}`)}}>
             {!postPage && (
                 <img
                 src={post?.userImg}

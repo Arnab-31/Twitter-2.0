@@ -14,3 +14,10 @@ export const postIdState = atom({
     default: "",
 })
 
+
+
+export const communityIdState = atom({    
+    key: "communityIdState",
+    default: null,
+})
+

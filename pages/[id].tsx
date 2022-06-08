@@ -9,7 +9,7 @@ import {
   import { useRouter } from "next/router";
   import { FC, useEffect, useState } from "react";
   import { useRecoilState } from "recoil";
-  import { modalState } from "../atoms/modalAtom";
+  import { communityIdState, modalState } from "../atoms/modalAtom";
   import Modal from "../components/Modal";
   import Sidebar from "../components/Sidebar";
   import Post from "../components/Post";
@@ -32,32 +32,50 @@ const PostPage:FC<PostPageProps> = ({ trendingResults, followResults, providers 
 
     const { data: session } = useSession();
     const [isOpen, setIsOpen] = useRecoilState(modalState);
+    const [communityId, setCommunityId] = useRecoilState(communityIdState);
     const [post, setPost] = useState<any>();
     const [comments, setComments] = useState<any[]>([]);
     const router = useRouter();
     const { id }:any = router.query;
 
     useEffect(
-        () =>
+        () => {
+          if(communityId){
+            console.log("id page", communityId)
+            onSnapshot(doc(db,"community", communityId, "posts", id), (snapshot:any) => {
+              setPost(snapshot.data());
+            })
+          }
+          else{
           onSnapshot(doc(db , "posts", id), (snapshot:any) => {
             setPost(snapshot.data());
-          }),
+          })
+        }},
         [db]
     );
 
         
     useEffect(
-        () =>
-        onSnapshot(
-            query(
-            collection(db, "posts", id, "comments"),
-            orderBy("timestamp", "desc")
-            ),
-            (snapshot:any) => setComments(snapshot.docs)
-        ),
-        [db, id]
+        () => {
+          if(communityId){
+            onSnapshot(
+              query(
+              collection(db,"community", communityId, "posts", id, "comments"),
+              orderBy("timestamp", "desc")
+              ),
+              (snapshot:any) => setComments(snapshot.docs)
+            )
+          }else{
+            onSnapshot(
+                query(
+                collection(db, "posts", id, "comments"),
+                orderBy("timestamp", "desc")
+                ),
+                (snapshot:any) => setComments(snapshot.docs)
+            )}
+          },[db, id]
     );
-  
+    console.log("Post id", id);
     return (
         <div>
           <Head>
@@ -98,7 +116,7 @@ const PostPage:FC<PostPageProps> = ({ trendingResults, followResults, providers 
                 followResults={followResults}
             />
     
-            {isOpen && <Modal />}
+            {isOpen && <Modal community={communityId}/>}
           </main>
         </div>
     );
@@ -111,9 +129,44 @@ export async function getServerSideProps(context:any) {
     const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
       (res) => res.json()
     );
-    const followResults = await fetch("https://jsonkeeper.com/b/WWMJ").then(
-      (res) => res.json()
-    );
+    const followResults = [
+      {
+      userImg: "https://www.careersinmusic.com/wp-content/uploads/2016/01/get-more-fans-of-your-music.jpg",
+      username: "Musicans",
+      tag: "@musicX",
+      id: "dcdscs"
+      },
+      {
+      userImg: "https://i.pinimg.com/originals/d9/7f/1d/d97f1d658ed51fd2b3bca996cacfb2dc.jpg",
+      username: "Basketball",
+      tag: "@basketBall",
+      id: "ycnnhx",
+      },
+      {
+      userImg: "https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2022/05/08/3215361-102240079.jpg?itok=XUhIltdc",
+      username: "Crypto",
+      tag: "@cryptoCom",
+      id: "sbjcnr"
+      },
+      {
+      userImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRprWSRwkimw8lkZwEjnwhfj3vxi-b4sRV8gA&usqp=CAU",
+      username: "Football",
+      tag: "@ballFC",
+      id: "bjcbda"
+      },
+      {
+      userImg: "https://images.squarespace-cdn.com/content/v1/5a6ba105f14aa1d81bd5b971/ebe3ca7d-1edc-4b4f-ac24-a60d9408fd76/The_Fabricant_Digital_Fashion",
+      username: "Fashion Enthusiasts",
+      tag: "@fashionX",
+      id: "bsjdbc"
+      },
+      {
+      userImg: "https://cd.blokt.com/wp-content/uploads/2018/03/virtonomics-2-e1520119458484.jpg",
+      username: "Tech Geeks",
+      tag: "@techies",
+      id:"nhdbdj"
+      }
+    ]
     const providers = await getProviders();
     const session = await getSession(context);
   

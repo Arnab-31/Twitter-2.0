@@ -18,7 +18,7 @@ Joining a Community: Users can join a community by clicking the "Join" button on
 
 Tweeting Inside a Community: Users can tweet inside a community by selecting the community from a dropdown menu when creating a tweet. The tweet will be posted to the user's profile and will also be visible to other members of the selected community.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+
 
 
 ## Installation

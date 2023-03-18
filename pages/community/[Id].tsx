@@ -4,9 +4,10 @@ import CommunityFeed from "../../components/CommunityFeed";
 import { getProviders, getSession, useSession } from "next-auth/react";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/router";
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { modalState } from "../../atoms/modalAtom";
 import Modal from "../../components/Modal";
+import { trendingData } from "..";
 
 
 interface HomeProps {
@@ -19,9 +20,9 @@ const Community:FC<HomeProps>  = ({ trendingResults, followResults, providers })
   const router = useRouter();  
   const { Id } = router.query;
   const [isOpen, setIsOpen] = useRecoilState(modalState); 
-
     return (
-        <div className="bg-black min-h-screen flex min-w-full max-w-[1500px]">
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="bg-black min-h-screen flex mx-auto">
             <Sidebar />
             <CommunityFeed />
             <Widgets
@@ -30,6 +31,7 @@ const Community:FC<HomeProps>  = ({ trendingResults, followResults, providers })
             />
             {isOpen && <Modal community={Id} />}
         </div>
+      </div>
 
         
     )
@@ -40,9 +42,7 @@ const Community:FC<HomeProps>  = ({ trendingResults, followResults, providers })
 
 
 export async function getServerSideProps(context: any) {
-    const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
-      (res) => res.json()
-    );
+    const trendingResults = trendingData;
     const followResults = [
       {
       userImg: "https://www.careersinmusic.com/wp-content/uploads/2016/01/get-more-fans-of-your-music.jpg",
@@ -57,7 +57,7 @@ export async function getServerSideProps(context: any) {
       id: "ycnnhx",
       },
       {
-      userImg: "https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2022/05/08/3215361-102240079.jpg?itok=XUhIltdc",
+      userImg: "https://images.moneycontrol.com/static-mcnews/2022/09/Cryptocurrency-5.png?impolicy=website&width=1600&height=900",
       username: "Crypto",
       tag: "@cryptoCom",
       id: "sbjcnr"

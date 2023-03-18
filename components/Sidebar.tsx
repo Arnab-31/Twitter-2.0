@@ -24,11 +24,11 @@ function Sidebar (){
             <div className="flex items-center justify-center w-14 h-14
             hoverAnimation p-0 xl:ml-24">
               <Link href="/">
-                <Image src="https://rb.gy/ogau5a" width={30} height={30}/>
+                <Image src="https://icon-library.com/images/twitter-icon-svg/twitter-icon-svg-28.jpg" width={30} height={30}/>
               </Link>
             </div>
 
-            <div className = "space-y-2.5 mt-4 mb-2.5 xl:ml-24">
+            <div className = "space-y-4 mt-4 mb-2.5 xl:ml-24">
                 <SidebarLink text="Home" Icon={HomeIcon} active />
                 <SidebarLink text="Explore" Icon={HashtagIcon} />
                 <SidebarLink text="Notifications" Icon={BellIcon}  />
@@ -55,7 +55,7 @@ function Sidebar (){
                     <p className="text-[#6e767d]">@A{session?.user?.tag}</p>
                 </div>
 
-                <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10"/>
+                <DotsHorizontalIcon className="h7 hidden xl:inline ml-10"/>
             </div> 
         </div> 
     )

@@ -25,7 +25,7 @@ import { Session } from "inspector";
 
 const Input = ({comId  = null} : any) => {
 
-    console.log("ComId ", comId)
+    
     const [input, setInput] = useState("");
     const [showEmojis, setShowEmojis] = useState(false);
     const [selectedFile,  setSelectedFile] = useState(null);
@@ -132,7 +132,7 @@ const Input = ({comId  = null} : any) => {
     return (
     <div className={`border-b border-gray-700 p-3 flex space-x-3 overflow-y-auto overflow-x-auto ${loading && "opacity-60"} `}>
         
-        <img  className="h-11 w-11 rounded-full cursor-pointer"
+        <img  className="h-14 w-14 rounded-full cursor-pointer"
          src = {String(session?.user?.image)}></img>
 
 
@@ -145,7 +145,7 @@ const Input = ({comId  = null} : any) => {
                     }}
                     rows={2} 
                     placeholder="What's happening?"
-                    className="bg-transparent outline-none text-[#d9d9d9] text-lg placeholder-gray-500 tracking-wide w-full min-h-[50px] overflow-y-auto overflow-x-auto"
+                    className="bg-transparent outline-none text-[#d9d9d9] text-xl placeholder-gray-500 tracking-wide w-full min-h-[50px] overflow-y-auto overflow-x-auto"
                 />
 
                 
@@ -155,7 +155,7 @@ const Input = ({comId  = null} : any) => {
                         className="absolute w-8 h-8 bg-[#15181c] hover:bg-[#272c26] bg-opacity-75 rounded-full flex items-center justify-center top-1 left-1 cursor-pointer"
                         onClick={() => setSelectedFile(null)}
                     >
-                        <XIcon className="text-white h-5" />
+                        <XIcon className="text-white h7" />
                     </div>
 
                     <img
@@ -206,7 +206,7 @@ const Input = ({comId  = null} : any) => {
                         )}
                     </div>
                     <button
-                        className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
+                        className="bg-[#1d9bf0] text-white text-xl rounded-full px-4 py-2 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
                         disabled={!input.trim() && !selectedFile}
                         // onClick={sendPost}
                         onClick={comId ? sendCommunityPost : sendPost} 

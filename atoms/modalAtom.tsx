@@ -3,21 +3,21 @@ import { atom } from "recoil";
 
 
 export const modalState = atom({    //globally available state
-    key: "modalState",
+    key: "modalState5",
     default: false,
 })
 
 
 
 export const postIdState = atom({    
-    key: "postIdState",
+    key: "postIdState5",
     default: "",
 })
 
 
 
 export const communityIdState = atom({    
-    key: "communityIdState",
+    key: "communityIdState5",
     default: null,
 })
 

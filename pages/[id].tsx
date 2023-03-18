@@ -18,6 +18,7 @@ import {
   import Head from "next/head";
   import Comment from "../components/Comment";
 import Widgets from "../components/Widgets";
+import { trendingData } from ".";
 
 
 
@@ -77,27 +78,27 @@ const PostPage:FC<PostPageProps> = ({ trendingResults, followResults, providers 
     );
     console.log("Post id", id);
     return (
-        <div>
+        <div className="flex flex-col items-center justify-center min-h-screen">
           <Head>
             <title>
               {post?.username} on Twitter: "{post?.text}"
             </title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          <main className="bg-black min-h-screen flex max-w-[1500px] mx-auto">
+          <main className="bg-black min-h-screen flex mx-auto">
             <Sidebar />
-            <div className="flex-grow border-l border-r border-gray-700 max-w-2xl sm:ml-[73px] xl:ml-[370px]">
+            <div className="flex-grow border-l border-r border-gray-700 max-w-4xl sm:ml-[73px] xl:ml-[370px]">
               <div className="flex items-center px-1.5 py-2 border-b border-gray-700 text-[#d9d9d9] font-semibold text-xl gap-x-4 sticky top-0 z-50 bg-black">
                 <div
                   className="hoverAnimation w-9 h-9 flex items-center justify-center xl:px-0"
                   onClick={() => router.push("/")}
                 >
-                  <ArrowLeftIcon className="h-5 text-white" />
+                  <ArrowLeftIcon className="h7 text-white" />
                 </div>
                 Tweet
               </div>
     
-              <Post id={id} post={post} postPage />
+              <Post id={id} post={post} postPage comId={null}/>
               {comments.length > 0 && (
                 <div className="pb-72">
                   {comments.map((comment) => (
@@ -126,9 +127,7 @@ export default PostPage;
 
 
 export async function getServerSideProps(context:any) {
-    const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
-      (res) => res.json()
-    );
+    const trendingResults = trendingData;
     const followResults = [
       {
       userImg: "https://www.careersinmusic.com/wp-content/uploads/2016/01/get-more-fans-of-your-music.jpg",
@@ -143,7 +142,7 @@ export async function getServerSideProps(context:any) {
       id: "ycnnhx",
       },
       {
-      userImg: "https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2022/05/08/3215361-102240079.jpg?itok=XUhIltdc",
+      userImg: "https://images.moneycontrol.com/static-mcnews/2022/09/Cryptocurrency-5.png?impolicy=website&width=1600&height=900",
       username: "Crypto",
       tag: "@cryptoCom",
       id: "sbjcnr"

@@ -3,12 +3,41 @@ import Sidebar from '../components/Sidebar'
 import Feed from '../components/Feed'
 import { getProviders, getSession, useSession } from "next-auth/react";
 import { SessionProvider } from "next-auth/react"
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Login from "../components/Login";
 import Modal from "../components/Modal";
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { modalState } from '../atoms/modalAtom';
 import Widgets from '../components/Widgets';
+
+export const trendingData = [
+  {
+    heading: "T20 World Cup 2021 · LIVE",
+    description: "NZvAUS: New Zealand and Australia clash in the T20 World Cup final",
+    img: "https://rb.gy/d9yjtu",
+    tags: [
+    "#T20WorldCupFinal, ",
+    "Kane Williamson"
+    ]
+  },
+  {
+    heading: "Trending in United Arab Emirates",
+    description: "#earthquake",
+    img: "https://rb.gy/jvuy4v",
+    tags: [
+    "#DubaiAirshow, ",
+    "#gessdubai"
+    ]
+  },
+  {
+    heading: "Trending in Digital Creators",
+    description: "tubbo and quackity",
+    img: "",
+    tags: [
+    "QUACKITY AND TUBBO,"
+    ]
+  }
+]
 
 interface HomeProps {
   trendingResults: any,
@@ -21,7 +50,8 @@ const Home:FC<HomeProps> = ({ trendingResults, followResults, providers })  => {
   //   {useSession() ? <Login />: null}
   // </SessionProvider>
   const { data: session } = useSession();
-  const [isOpen, setIsOpen] = useRecoilState(modalState)
+  const [open, setOpen] = useRecoilState(modalState);
+  
 
   if (!session) return <Login  providers={providers}/>;
 
@@ -33,24 +63,22 @@ const Home:FC<HomeProps> = ({ trendingResults, followResults, providers })  => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <main className="bg-black min-h-screen flex min-w-full max-w-[1500px]">
+      <main className="bg-black min-h-screen flex">
           <Sidebar/>
-          <Feed /> 
+          <Feed modalOpen={setOpen}/> 
           <Widgets
           trendingResults={trendingResults}
           followResults={followResults}
           />
-
-          {isOpen && <Modal /> }
+           
+          {open && <Modal  /> }
       </main> 
     </div>
   )
 }
 
 export async function getServerSideProps(context: any) {
-  const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
-    (res) => res.json()
-  );
+  const trendingResults = trendingData;
   const followResults = [
     {
     userImg: "https://www.careersinmusic.com/wp-content/uploads/2016/01/get-more-fans-of-your-music.jpg",
@@ -65,7 +93,7 @@ export async function getServerSideProps(context: any) {
     id: "ycnnhx",
     },
     {
-    userImg: "https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2022/05/08/3215361-102240079.jpg?itok=XUhIltdc",
+    userImg: "https://images.moneycontrol.com/static-mcnews/2022/09/Cryptocurrency-5.png?impolicy=website&width=1600&height=900",
     username: "Crypto",
     tag: "@cryptoCom",
     id: "sbjcnr"

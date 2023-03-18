@@ -9,9 +9,9 @@ const Login:FC<LoginProps> = ({providers}) => {
     return (
         <div className="flex flex-col items-center space-y-20 pt-48">
             <Image
-                src="https://rb.gy/ogau5a"
-                width={150} 
-                height={150}
+                src="https://icon-library.com/images/twitter-icon-svg/twitter-icon-svg-28.jpg"
+                width={200} 
+                height={200}
                 objectFit="contain"
             />
 

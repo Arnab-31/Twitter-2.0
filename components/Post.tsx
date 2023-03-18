@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import Moment from "react-moment";
 import { useSession } from "next-auth/react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {useRouter} from "next/router"
 import {
     collection,
@@ -40,7 +40,9 @@ const Post:FC<PostProps> = ({id,post, postPage = false, comId=null}) => {
 
 
     const { data: session }:any = useSession();
-    const [isOpen,setIsOpen] = useRecoilState(modalState);
+
+    const [isOpen, setIsOpen] = useRecoilState(modalState);
+
     const [postId,setPostId] = useRecoilState(postIdState);
     const [communityId, setCommunityId] = useRecoilState(communityIdState);
     const [comments, setComments] = useState([]);
@@ -96,7 +98,7 @@ const Post:FC<PostProps> = ({id,post, postPage = false, comId=null}) => {
                 <img
                 src={post?.userImg}
                 alt=""
-                className="h-11 w-11 rounded-full mr-4"
+                className="h-14 w-14 rounded-full mr-4"
               />
             )}
 
@@ -106,14 +108,14 @@ const Post:FC<PostProps> = ({id,post, postPage = false, comId=null}) => {
                         <img
                         src={post?.userImg}
                         alt="Profile Pic"
-                        className="h-11 w-11 rounded-full mr-4"
+                        className="h-14 w-14 rounded-full mr-4"
                         />
                     )}
 
                     <div className="text-[#6e767d]">
                         <div className="inline-block group">
                             <h4
-                                className={`font-bold text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline ${
+                                className={`font-bold xl:text-[15px] sm:text-base text-[#d9d9d9] group-hover:underline ${
                                 !postPage && "inline-block"
                                 }`}
                             >
@@ -130,17 +132,17 @@ const Post:FC<PostProps> = ({id,post, postPage = false, comId=null}) => {
                             <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
                         </span>
                         {!postPage && (
-                        <p className="text-[#d9d9d9] text-[15px] sm:text-base mt-0.5">
+                        <p className="text-[#d9d9d9] xl:text-[20px] sm:text-base mt-2 mb-1">
                            {post?.text}
                         </p>
                         )}
                     </div>
                     <div className="icon group flex-shrink-0 ml-auto">
-                        <DotsHorizontalIcon className="h-5 text-[#6e767d] group-hover:text-[#1d9bf0]" />
+                        <DotsHorizontalIcon className="h7 text-[#6e767d] group-hover:text-[#1d9bf0]" />
                     </div>
                 </div>
                 {postPage && (
-                    <p className="text-[#d9d9d9] mt-0.5 text-xl">{post?.text}</p>
+                    <p className="text-[#d9d9d9] mt-0.5 text-2xl">{post?.text}</p>
                 )}
                 <img
                     src={post?.image}
@@ -154,12 +156,14 @@ const Post:FC<PostProps> = ({id,post, postPage = false, comId=null}) => {
                     <div
                         className="flex items-center space-x-1 group"
                         onClick={(e) => {
+                            console.log("Clicked")
                         e.stopPropagation();
-                        setPostId(id);
                         setIsOpen(true);
+                        setPostId(id);
+                        setTimeout(() => console.log(isOpen), 500)
                     }}>
                         <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
-                            <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
+                            <ChatIcon className="h7 group-hover:text-[#1d9bf0]" />
                         </div>
                         {comments.length > 0 && (
                         <span className="group-hover:text-[#1d9bf0] text-sm">
@@ -178,13 +182,13 @@ const Post:FC<PostProps> = ({id,post, postPage = false, comId=null}) => {
                     }}
                     >
                         <div className="icon group-hover:bg-red-600/10">
-                            <TrashIcon className="h-5 group-hover:text-red-600" />
+                            <TrashIcon className="h7 group-hover:text-red-600" />
                         </div>
                     </div>
                     ) : (
                     <div className="flex items-center space-x-1 group">
                         <div className="icon group-hover:bg-green-500/10">
-                            <SwitchHorizontalIcon className="h-5 group-hover:text-green-500" />
+                            <SwitchHorizontalIcon className="h7 group-hover:text-green-500" />
                         </div>
                     </div>
                     )}
@@ -198,9 +202,9 @@ const Post:FC<PostProps> = ({id,post, postPage = false, comId=null}) => {
                     >
                         <div className="icon group-hover:bg-pink-600/10">
                         {liked ? (
-                            <HeartIconFilled className="h-5 text-red-600" />
+                            <HeartIconFilled className="h7 text-red-600" />
                         ) : (
-                            <HeartIcon className="h-5 group-hover:text-red-600" />
+                            <HeartIcon className="h7 group-hover:text-red-600" />
                         )}  
                             </div>
                                 {likes.length > 0 && (
@@ -215,10 +219,10 @@ const Post:FC<PostProps> = ({id,post, postPage = false, comId=null}) => {
                             </div>
 
                             <div className="icon group">
-                                <ShareIcon className="h-5 group-hover:text-[#1d9bf0]" />
+                                <ShareIcon className="h-7 group-hover:text-[#1d9bf0]" />
                             </div>
                             <div className="icon group">
-                                <ChartBarIcon className="h-5 group-hover:text-[#1d9bf0]" />
+                                <ChartBarIcon className="h-7 group-hover:text-[#1d9bf0]" />
                             </div>
                          </div>
                      </div> 

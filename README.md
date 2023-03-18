@@ -1,27 +1,33 @@
-# Next.js + Tailwind CSS Example
+# Twitter 2.0
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+This is a Twitter clone project that aims to replicate some of the key features of the popular social media platform. Users can create a tweet, like a tweet, delete a tweet, join a community, and tweet inside a community.
 
-## Preview
+## Features
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+Twitter Clone Project
+This is a Twitter clone project that aims to replicate some of the key features of the popular social media platform. Users can create a tweet, like a tweet, delete a tweet, join a community, and tweet inside a community.
+
+Features
+Creating a Tweet: Users can create a tweet by entering text and clicking the "Tweet" button. The tweet will be posted to the user's profile and will be visible to their followers.
+
+Liking a Tweet: Users can like a tweet by clicking the heart icon on the tweet. The tweet's like count will be incremented and the user's like will be registered.
+
+Deleting a Tweet: Users can delete their own tweet by clicking the trash can icon on the tweet. The tweet will be removed from the user's profile and will no longer be visible to their followers.
+
+Joining a Community: Users can join a community by clicking the "Join" button on the community page. Once they join a community, they will be able to see the tweets posted by other members of the community.
+
+Tweeting Inside a Community: Users can tweet inside a community by selecting the community from a dropdown menu when creating a tweet. The tweet will be posted to the user's profile and will also be visible to other members of the selected community.
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
 
-## Deploy your own
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+## Installation
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+1. Clone the repository
+2. Install dependencies using npm install
+3. Create a .env file with the following variables:
+        GOOGLE_CLIENT_SECRET: the secret key for your google auth
+        GOOGLE_CLIENT_ID: the client id for your google auth
+4. Run the server using npm start
+5. Access the application at http://localhost:3000
 
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
